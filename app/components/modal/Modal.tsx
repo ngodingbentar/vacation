@@ -106,43 +106,12 @@ const Modal: React.FC<ModalProps> = ({
             ${showModal ? 'translate-y-0' : 'translate-y-full'}
             ${showModal ? 'opacity-100' : 'opacity-0'}
           `}>
-             <div className="
-              translate
-              h-full
-              lg:h-auto
-              md:h-auto
-              border-0 
-              rounded-lg 
-              shadow-lg 
-              relative 
-              flex 
-              flex-col 
-              w-full 
-              bg-white 
-              outline-none 
-              focus:outline-none
-            "
-            >
+             <div className="translate h-full lg:h-auto md:h-auto border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
                {/*header*/}
-               <div className="
-                flex 
-                items-center 
-                p-6
-                rounded-t
-                justify-center
-                relative
-                border-b-[2px]
-                "
+               <div className="flex items-center p-6 rounded-t justify-center relative border-b-[2px]"
               >
                 <button
-                  className="
-                    p-1
-                    border-0 
-                    hover:opacity-70
-                    transition
-                    absolute
-                    left-9
-                  "
+                  className="p-1 border-0 hover:opacity-70 transition absolute left-9"
                   onClick={handleClose}
                 >
                   <IoMdClose size={18} />
@@ -157,15 +126,7 @@ const Modal: React.FC<ModalProps> = ({
               </div>
               {/*footer*/}
               <div className="flex flex-col gap-2 p-6">
-                <div 
-                  className="
-                    flex 
-                    flex-row 
-                    items-center 
-                    gap-4 
-                    w-full
-                  "
-                >
+                <div className="flex flex-row items-center gap-4 w-full">
                   {secondaryAction && secondaryActionLabel && (
                     <Button
                       disabled={disabled} 
