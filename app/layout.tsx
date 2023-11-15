@@ -4,6 +4,7 @@ import './globals.css'
 import Navbar from './components/navbar/Navbar'
 import ClientOnly from './components/ClientOnly'
 import Modal from './components/modal/Modal'
+import RegisterModal from './components/modal/RegisterModal'
 
 const inter = Inter({ subsets: ['latin'] })
 const roboto = Roboto({
@@ -25,7 +26,8 @@ export default function RootLayout({
     <html lang="en">
       <body className={roboto.className}>
         <ClientOnly>
-          <Modal isOpen={true} title='hah apa' actionLabel='my-btn' />
+          <RegisterModal />
+          {/* <Modal isOpen={true} title='hah apa' actionLabel='my-btn' /> */}
           <Navbar />
         </ClientOnly>
         {children}
