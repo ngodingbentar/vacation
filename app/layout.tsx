@@ -7,6 +7,7 @@ import Modal from './components/modal/Modal'
 import RegisterModal from './components/modal/RegisterModal'
 import ToasterProvider from './providers/ToasterProvider'
 import SignInModal from './components/modal/SignInModal'
+import getCurrentUser from './action/getCurrentUser'
 
 const inter = Inter({ subsets: ['latin'] })
 const roboto = Roboto({
@@ -19,11 +20,12 @@ export const metadata: Metadata = {
   description: 'Vacation Rentals, Homes, and More',
 }
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
+  const currentUser = await getCurrentUser()
   return (
     <html lang="en">
       <body className={roboto.className}>
@@ -31,7 +33,7 @@ export default function RootLayout({
           <ToasterProvider />
           <SignInModal />
           <RegisterModal />
-          <Navbar />
+          <Navbar currentUser={currentUser} />
         </ClientOnly>
         {children}
       </body>
