@@ -1,18 +1,17 @@
 'use client';
 
 import React, { useCallback, useState } from 'react'
-import { User } from '@prisma/client';
 import { signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { AiOutlineMenu } from "react-icons/ai";
 import MenuItem from './MenuItem'
-// import { FaRegCircleUser } from "react-icons/fa6";
 import Avatar from '../Avatar';
 import useRegisterModal from '@/app/hooks/useRegisterModal';
 import useSignInModal from '@/app/hooks/useSignInModel';
+import { SafeUser } from '@/app/types';
 
 interface NavbarProps {
-  currentUser?: User | null
+  currentUser?: SafeUser | null
 }
 
 const UserMenu: React.FC<NavbarProps> = ({currentUser}) => {
@@ -65,7 +64,7 @@ const UserMenu: React.FC<NavbarProps> = ({currentUser}) => {
           <AiOutlineMenu />
           <div className="hidden md:block">
             {/* <FaRegCircleUser size={22} /> */}
-            <Avatar src="" />
+            <Avatar src={currentUser?.image} />
           </div>
         </div>
       </div>
