@@ -6,6 +6,7 @@ import ClientOnly from './components/ClientOnly'
 import Modal from './components/modal/Modal'
 import RegisterModal from './components/modal/RegisterModal'
 import ToasterProvider from './providers/ToasterProvider'
+import SignInModal from './components/modal/SignInModal'
 
 const inter = Inter({ subsets: ['latin'] })
 const roboto = Roboto({
@@ -28,6 +29,7 @@ export default function RootLayout({
       <body className={roboto.className}>
         <ClientOnly>
           <ToasterProvider />
+          <SignInModal />
           <RegisterModal />
           <Navbar />
         </ClientOnly>
