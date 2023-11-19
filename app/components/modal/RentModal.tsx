@@ -1,5 +1,6 @@
 'use client'
 import { useMemo, useState } from "react";
+import dynamic from 'next/dynamic'
 import { useRouter } from 'next/navigation';
 import useRentModal from "@/app/hooks/useRentModel"
 import Modal from "./Modal"
@@ -7,6 +8,7 @@ import Heading from "../Heading";
 import { categories } from "../navbar/Categories";
 import CategoryInput from "../inputs/CategoryInput";
 import { FieldValues, useForm } from "react-hook-form";
+import CountrySelect from "../inputs/CountrySelect";
 
 enum STEPS {
   CATEGORY = 0,
@@ -53,6 +55,10 @@ const RentModel = () => {
   const roomCount = watch('roomCount');
   const bathroomCount = watch('bathroomCount');
   const imageSrc = watch('imageSrc');
+
+  const Map = useMemo(() => dynamic(() => import('../Map'), { 
+    ssr: false 
+  }), [location]);
 
   const setCustomValue = (id: string, value: any) => {
     console.log('id', id, 'value', value)
@@ -118,11 +124,27 @@ const RentModel = () => {
     </div>
   )
 
+  if (step === STEPS.LOCATION) {
+    bodyContent = (
+      <div className="flex flex-col gap-8">
+        <Heading
+          title="Where is your place located?"
+          subtitle="Help guests find you!"
+        />
+        <CountrySelect
+          value={location} 
+          onChange={(value) => setCustomValue('location', value)} 
+        />
+        <Map center={location?.latlng} />
+      </div>
+    );
+  }
+
   return (
     <Modal
       isOpen={rentModal.isOpen}
       onClose={rentModal.onClose}
-      onSubmit={rentModal.onClose}
+      onSubmit={onNext}
       title="Airbnb your home!"
       actionLabel={actionLabel}
       secondaryActionLabel={secondaryActionLabel}
