@@ -12,9 +12,12 @@ import Modal from "./Modal";
 import Heading from "../Heading";
 import Input from "../inputs/Input";
 import Button from "../Button";
+import SignInModal from "./SignInModal";
+import useSignInModal from "@/app/hooks/useSignInModel";
 
 const RegisterModal = () => {
   const registerModal = useRegisterModal();
+  const signInModal = useSignInModal();
   const [isLoading, setIsLoading] = useState(false);
 
   const {
@@ -50,7 +53,8 @@ const RegisterModal = () => {
 
   const onToggle = useCallback(() => {
     registerModal.onClose();
-  }, []);
+    signInModal.onOpen()
+  }, [registerModal, signInModal]);
 
   const bodyContent = (
     <div className="flex flex-col gap-4">

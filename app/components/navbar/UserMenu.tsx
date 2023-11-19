@@ -9,6 +9,7 @@ import Avatar from '../Avatar';
 import useRegisterModal from '@/app/hooks/useRegisterModal';
 import useSignInModal from '@/app/hooks/useSignInModel';
 import { SafeUser } from '@/app/types';
+import useRentModal from '@/app/hooks/useRentModel';
 
 interface NavbarProps {
   currentUser?: SafeUser | null
@@ -16,18 +17,30 @@ interface NavbarProps {
 
 const UserMenu: React.FC<NavbarProps> = ({currentUser}) => {
   const router = useRouter()
+  const [isOpen, setIsOpen] = useState(false)
+
+  // Modal
   const registerModal = useRegisterModal()
   const signInModal = useSignInModal()
-  const [isOpen, setIsOpen] = useState(false)
+  const rentModal = useRentModal()
 
   const toggleOpen = useCallback(() => {
     setIsOpen((value) => !value);
   }, []);
 
+  const onRent = useCallback(() => {
+    if (!currentUser) {
+      return signInModal.onOpen();
+    }
+
+    rentModal.onOpen();
+  }, [currentUser, rentModal, signInModal]);
+
   return (
     <div className="relative">
       <div className="flex flex-row items-center gap-3">
         <div
+          onClick={onRent}
           className="
             hidden
             md:block
@@ -102,10 +115,10 @@ const UserMenu: React.FC<NavbarProps> = ({currentUser}) => {
                   label="My properties" 
                   onClick={() => router.push('/properties')}
                 />
-                {/* <MenuItem 
-                  label="Airbnb your home" 
+                <MenuItem 
+                  label="NB your home" 
                   onClick={rentModal.onOpen}
-                /> */}
+                />
                 <hr />
                 <MenuItem 
                   label="Logout" 

@@ -3,11 +3,11 @@ import { Inter, Roboto } from 'next/font/google'
 import './globals.css'
 import Navbar from './components/navbar/Navbar'
 import ClientOnly from './components/ClientOnly'
-import Modal from './components/modal/Modal'
-import RegisterModal from './components/modal/RegisterModal'
 import ToasterProvider from './providers/ToasterProvider'
-import SignInModal from './components/modal/SignInModal'
 import getCurrentUser from './action/getCurrentUser'
+import SignInModal from './components/modal/SignInModal'
+import RegisterModal from './components/modal/RegisterModal'
+import RentModal from './components/modal/RentModal'
 
 const inter = Inter({ subsets: ['latin'] })
 const roboto = Roboto({
@@ -31,6 +31,7 @@ export default async function RootLayout({
       <body className={roboto.className}>
         <ClientOnly>
           <ToasterProvider />
+          <RentModal />
           <SignInModal />
           <RegisterModal />
           <Navbar currentUser={currentUser} />
