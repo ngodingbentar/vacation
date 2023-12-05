@@ -33,7 +33,6 @@ const SignInModal = () => {
   });
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
-    console.log("onsubmit data", data);
     setIsLoading(true);
 
     signIn('credentials', { 

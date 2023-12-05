@@ -33,7 +33,6 @@ const RegisterModal = () => {
   });
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
-    console.log("onsubmit data", data);
     setIsLoading(true);
 
     axios

@@ -2,9 +2,13 @@ import Image from 'next/image'
 import ClientOnly from './components/ClientOnly'
 import Container from './components/Container'
 import EmptyState from './components/EmptyState';
+import getListings from './action/getListings';
+import ListingCard from './components/listings/ListingCard';
+import getCurrentUser from './action/getCurrentUser';
 
-export default function Home() {
-  const listings = []
+export default async function Home() {
+  const currentUser = await getCurrentUser();
+  const listings = await getListings()
 
   if (listings.length === 0) {
     return (
@@ -29,14 +33,13 @@ export default function Home() {
             gap-8
           "
         >
-          hah
-          {/* {listings.map((listing: any) => (
+          {listings.map((listing: any) => (
             <ListingCard
               currentUser={currentUser}
               key={listing.id}
               data={listing}
             />
-          ))} */}
+          ))}
         </div>
       </Container>
     </ClientOnly>

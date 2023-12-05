@@ -66,7 +66,6 @@ const RentModel = () => {
   }), [location]);
 
   const setCustomValue = (id: string, value: any) => {
-    console.log('id', id, 'value', value)
     setValue(id, value, {
       shouldDirty: true,
       shouldTouch: true,

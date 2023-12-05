@@ -7,8 +7,6 @@ export async function POST(
   request: Request, 
 ) {
   const body = await request.json();
-  console.log('request', request)
-  console.log('body', body)
   const { 
     email,
     name,
@@ -24,8 +22,6 @@ export async function POST(
       hashedPassword,
     }
   });
-
-  console.log('user', user)
 
   return NextResponse.json(user);
 }

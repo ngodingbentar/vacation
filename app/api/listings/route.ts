@@ -13,7 +13,6 @@ export async function POST(
   }
 
   const body = await request.json();
-  console.log('body 1', body)
 
   const { 
     title,
@@ -26,7 +25,6 @@ export async function POST(
     location,
     price,
    } = body;
-   console.log('body 2', body)
 
   const listing = await prisma.listing.create({
     data: {
@@ -42,8 +40,6 @@ export async function POST(
       userId: currentUser.id
     }
   });
-
-  console.log('listing', listing)
 
   return NextResponse.json(listing);
 }
