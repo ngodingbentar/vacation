@@ -24,7 +24,6 @@ export async function POST(
   }
 
   let favoriteIds = [...(currentUser.favoriteIds || [])];
-  console.log('favoriteIds', favoriteIds)
 
   favoriteIds.push(listingId);
 
@@ -57,10 +56,8 @@ export async function DELETE(
   }
 
   let favoriteIds = [...(currentUser.favoriteIds || [])];
-  console.log('favorite 1', favoriteIds)
 
   favoriteIds = favoriteIds.filter((id) => id !== listingId);
-  console.log('favorite 2', favoriteIds)
 
   const user = await prisma.user.update({
     where: {
@@ -70,8 +67,6 @@ export async function DELETE(
       favoriteIds
     }
   });
-
-  console.log('user del', user)
 
   return NextResponse.json(user);
 }
