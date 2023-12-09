@@ -23,8 +23,6 @@ export default async function getListingById(
       return null;
     }
 
-    console.log('listing', listing)
-
     return {
       ...listing,
       createdAt: listing.createdAt.toString(),
