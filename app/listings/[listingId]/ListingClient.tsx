@@ -15,6 +15,7 @@ import { categories } from "@/app/components/navbar/Categories";
 import ListingHead from "@/app/components/listings/ListingHead";
 import ListingInfo from "@/app/components/listings/ListingInfo";
 import ListingReservation from "@/app/components/listings/ListingReservation";
+import { Reservation } from "@prisma/client";
 
 const initialDateRange = {
   startDate: new Date(),
@@ -24,6 +25,7 @@ const initialDateRange = {
 
 interface ListingClientProps {
   reservations?: SafeReservation[];
+  // reservations? : Reservation[]
   listing: SafeListing & {
     user: SafeUser;
   };
@@ -47,15 +49,11 @@ const ListingClient: React.FC<ListingClientProps> = ({
         end: new Date(reservation.endDate)
       });
 
-      console.log('range', range)
-
       dates = [...dates, ...range];
     });
 
     return dates;
   }, [reservations]);
-
-  console.log('disabledDates', disabledDates)
 
   const category = useMemo(() => {
      return categories.find((items) => 
@@ -81,8 +79,7 @@ const ListingClient: React.FC<ListingClientProps> = ({
       .then(() => {
         toast.success('Listing reserved!');
         setDateRange(initialDateRange);
-        // router.push('/trips');
-        router.refresh()
+        router.push('/trips')
       })
       .catch(() => {
         toast.error('Something went wrong.');
@@ -101,7 +98,6 @@ const ListingClient: React.FC<ListingClientProps> = ({
   ]);
 
   useEffect(() => {
-    console.log('dateRange', dateRange)
     if (dateRange.startDate && dateRange.endDate) {
       const dayCount = differenceInDays(
         dateRange.endDate, 
