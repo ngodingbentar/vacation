@@ -12,7 +12,6 @@ import Modal from "./Modal";
 import Heading from "../Heading";
 import Input from "../inputs/Input";
 import Button from "../Button";
-import SignInModal from "./SignInModal";
 import useSignInModal from "@/app/hooks/useSignInModel";
 
 const RegisterModal = () => {
@@ -40,7 +39,7 @@ const RegisterModal = () => {
       .then(() => {
         toast.success("Registered!");
         registerModal.onClose();
-        // loginModal.onOpen();
+        signInModal.onOpen();
       })
       .catch((error) => {
         toast.error("Something went wrong!");
