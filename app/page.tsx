@@ -2,13 +2,17 @@ import Image from 'next/image'
 import ClientOnly from './components/ClientOnly'
 import Container from './components/Container'
 import EmptyState from './components/EmptyState';
-import getListings from './action/getListings';
+import getListings, { IListingsParams } from './action/getListings';
 import ListingCard from './components/listings/ListingCard';
 import getCurrentUser from './action/getCurrentUser';
 
-export default async function Home() {
+interface HomeProps {
+  searchParams: IListingsParams
+};
+
+const Home = async ({ searchParams }: HomeProps) => {
   const currentUser = await getCurrentUser();
-  const listings = await getListings()
+  const listings = await getListings(searchParams)
 
   if (listings.length === 0) {
     return (
@@ -45,3 +49,5 @@ export default async function Home() {
     </ClientOnly>
   )
 }
+
+export default Home
