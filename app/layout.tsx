@@ -8,6 +8,7 @@ import getCurrentUser from './action/getCurrentUser'
 import SignInModal from './components/modal/SignInModal'
 import RegisterModal from './components/modal/RegisterModal'
 import RentModal from './components/modal/RentModal'
+import SearchModal from './components/modal/SearchModal'
 
 const inter = Inter({ subsets: ['latin'] })
 const roboto = Roboto({
@@ -35,6 +36,7 @@ export default async function RootLayout({
           <SignInModal />
           <RegisterModal />
           <Navbar currentUser={currentUser} />
+          <SearchModal />
         </ClientOnly>
         <div className='pb-20 pt-28'>
           {children}
