@@ -6,8 +6,6 @@ export default async function getFavoriteListings() {
   try {
     const currentUser = await getCurrentUser();
 
-    console.log('currentUser', currentUser)
-
     if (!currentUser) {
       return [];
     }
@@ -19,8 +17,6 @@ export default async function getFavoriteListings() {
         }
       }
     });
-
-    console.log('favorites', favorites)
 
     const safeFavorites = favorites.map((favorite) => ({
       ...favorite,

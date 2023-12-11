@@ -28,8 +28,6 @@ export default async function getListings(
       dew,
     } = params;
 
-    console.log('params', params)
-
     let query: any = {};
 
     if (userId) {
@@ -80,8 +78,6 @@ export default async function getListings(
         }
       }
     }
-
-    console.log('query', query)
 
     const listings = await prisma.listing.findMany({
       where: query,
