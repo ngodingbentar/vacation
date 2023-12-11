@@ -39,10 +39,10 @@ const ListingReservation: React.FC<
       <div className="
       flex flex-row items-center gap-1 p-4">
         <div className="text-2xl font-semibold">
-          Rp. {price}
+          {price.toLocaleString('id-ID', { style: 'currency', currency: 'IDR' })}
         </div>
         <div className="font-light text-neutral-600">
-          night
+          /night
         </div>
       </div>
       <hr />

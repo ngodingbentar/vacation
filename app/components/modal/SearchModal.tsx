@@ -72,7 +72,9 @@ const SearchModal = () => {
     };
 
     if (dateRange.startDate) {
-      updatedQuery.startDate = formatISO(dateRange.startDate);
+      updatedQuery.startDate = formatISO(dateRange.startDate)
+      console.log('dateRange.startDate', dateRange.startDate)
+      console.log('updatedQuery.startDate', updatedQuery.startDate)
     }
 
     if (dateRange.endDate) {
