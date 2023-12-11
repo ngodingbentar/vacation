@@ -2,6 +2,7 @@
 import { useMemo, useState } from "react";
 import dynamic from 'next/dynamic'
 import { useRouter } from 'next/navigation';
+import { useDispatch } from 'react-redux'
 import useRentModal from "@/app/hooks/useRentModel"
 import Modal from "./Modal"
 import Heading from "../Heading";
@@ -14,6 +15,7 @@ import ImageUpload from "../inputs/ImageUpload";
 import Input from "../inputs/Input";
 import axios from "axios";
 import toast from "react-hot-toast";
+import { setLoading } from "@/app/store/redux/main";
 
 enum STEPS {
   CATEGORY = 0,
@@ -27,6 +29,7 @@ enum STEPS {
 const RentModel = () => {
   const rentModal = useRentModal()
   const router = useRouter();
+  const dispatch = useDispatch()
 
   const [isLoading, setIsLoading] = useState(false);
   const [step, setStep] = useState(STEPS.CATEGORY);
@@ -85,9 +88,12 @@ const RentModel = () => {
     if (step !== STEPS.PRICE) {
       return onNext();
     }
+
+    if (data.imageSrc === '') data.imageSrc = 'https://res.cloudinary.com/dewaqintoro/image/upload/v1702302967/Ngodingbentar/z-TrhLCn1abMU-unsplash_1_mi4fiw.jpg'
     
     setIsLoading(true);
-
+    dispatch(setLoading(true))
+    
     axios.post('/api/listings', data)
     .then(() => {
       toast.success('Listing created!');
@@ -101,6 +107,7 @@ const RentModel = () => {
     })
     .finally(() => {
       setIsLoading(false);
+      dispatch(setLoading(false))
     })
   }
 

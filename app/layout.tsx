@@ -9,6 +9,8 @@ import SignInModal from './components/modal/SignInModal'
 import RegisterModal from './components/modal/RegisterModal'
 import RentModal from './components/modal/RentModal'
 import SearchModal from './components/modal/SearchModal'
+import Loader from "./components/LoaderState";
+import ReduxProvider from '@/app/store/provider'
 
 const inter = Inter({ subsets: ['latin'] })
 const roboto = Roboto({
@@ -30,17 +32,20 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body className={roboto.className}>
-        <ClientOnly>
-          <ToasterProvider />
-          <RentModal />
-          <SignInModal />
-          <RegisterModal />
-          <Navbar currentUser={currentUser} />
-          <SearchModal />
-        </ClientOnly>
-        <div className='pb-20 pt-28'>
-          {children}
-        </div>
+        <ReduxProvider>
+          <ClientOnly>
+            <ToasterProvider />
+            <RentModal />
+            <SignInModal />
+            <RegisterModal />
+            <Navbar currentUser={currentUser} />
+            <SearchModal />
+            <Loader />
+          </ClientOnly>
+          <div className='pb-20 pt-28'>
+            {children}
+          </div>
+        </ReduxProvider>
       </body>
     </html>
   )

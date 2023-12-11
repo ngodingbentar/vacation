@@ -22,3 +22,9 @@ export type SafeUser = Omit<
   updatedAt: string;
   emailVerified: string | null;
 };
+
+export type IStore = {
+  main : {
+    loading: boolean
+  }
+}
