@@ -36,6 +36,11 @@ const UserMenu: React.FC<NavbarProps> = ({currentUser}) => {
     rentModal.onOpen();
   }, [currentUser, rentModal, signInModal]);
 
+  const toggleSelect = useCallback((target: string) => {
+    router.push(target)
+    setIsOpen(false);
+  }, []);
+
   return (
     <div className="relative">
       <div className="flex flex-row items-center gap-3">
@@ -100,20 +105,24 @@ const UserMenu: React.FC<NavbarProps> = ({currentUser}) => {
             {currentUser ? (
               <>
                 <MenuItem 
-                  label="My trips" 
-                  onClick={() => router.push('/trips')}
+                  label="Account"
+                  onClick={() => toggleSelect('/account')}
                 />
                 <MenuItem 
-                  label="My favorites" 
-                  onClick={() => router.push('/favorites')}
+                  label="My trips"
+                  onClick={() => toggleSelect('/trips')}
                 />
                 <MenuItem 
-                  label="My reservations" 
-                  onClick={() => router.push('/reservations')}
+                  label="My favorites"
+                  onClick={() => toggleSelect('/favorites')}
                 />
                 <MenuItem 
-                  label="My properties" 
-                  onClick={() => router.push('/properties')}
+                  label="My reservations"
+                  onClick={() => toggleSelect('/reservations')}
+                />
+                <MenuItem 
+                  label="My properties"
+                  onClick={() => toggleSelect('/properties')}
                 />
                 <MenuItem 
                   label="NB your home" 
