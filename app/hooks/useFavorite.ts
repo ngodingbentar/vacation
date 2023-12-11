@@ -2,10 +2,12 @@ import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useCallback, useMemo } from "react";
 import { toast } from "react-hot-toast";
+import { useDispatch } from 'react-redux'
 
 import { SafeUser } from "@/app/types";
 
 import useLoginModal from "./useSignInModel";
+import { setLoading } from "../store/redux/main";
 
 interface IUseFavorite {
   listingId: string;
@@ -13,7 +15,8 @@ interface IUseFavorite {
 }
 
 const useFavorite = ({ listingId, currentUser }: IUseFavorite) => {
-  const router = useRouter();
+  const router = useRouter()
+  const dispatch = useDispatch()
 
   const loginModal = useLoginModal();
 
@@ -32,6 +35,7 @@ const useFavorite = ({ listingId, currentUser }: IUseFavorite) => {
 
     try {
       let request;
+      dispatch(setLoading(true))
 
       if (hasFavorited) {
         request = () => axios.delete(`/api/favorites/${listingId}`);
@@ -41,6 +45,7 @@ const useFavorite = ({ listingId, currentUser }: IUseFavorite) => {
 
       await request();
       router.refresh();
+      dispatch(setLoading(false))
       toast.success('Success');
     } catch (error) {
       toast.error('Something went wrong.');
@@ -51,7 +56,8 @@ const useFavorite = ({ listingId, currentUser }: IUseFavorite) => {
     hasFavorited, 
     listingId, 
     loginModal,
-    router
+    router,
+    dispatch,
   ]);
 
   return {

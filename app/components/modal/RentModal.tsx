@@ -3,6 +3,7 @@ import { useMemo, useState } from "react";
 import dynamic from 'next/dynamic'
 import { useRouter } from 'next/navigation';
 import { useDispatch } from 'react-redux'
+
 import useRentModal from "@/app/hooks/useRentModel"
 import Modal from "./Modal"
 import Heading from "../Heading";

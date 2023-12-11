@@ -6,19 +6,23 @@ import { IStore } from '../types';
 
 const Loader = () => {
   const loading = useSelector((state: IStore) => state.main.loading)
-
   return (
     <>
       {loading && (
         <div
           className="
-            h-screen
-            w-screen
-            absolute
+            overlay
             justify-center 
-            items-center
-            bg-black/20
-            z-50
+            items-center 
+            flex 
+            overflow-x-hidden 
+            overflow-y-auto 
+            fixed 
+            inset-0 
+            z-50 
+            outline-none 
+            focus:outline-none
+            bg-neutral-800/70
           "
         >
           <div className="flex justify-center items-center h-screen">
@@ -28,7 +32,7 @@ const Loader = () => {
             />
           </div>
         </div>
-      )} 
+      )}
     </>
    );
 }

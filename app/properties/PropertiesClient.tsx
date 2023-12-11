@@ -4,12 +4,14 @@ import { toast } from "react-hot-toast";
 import axios from "axios";
 import { useCallback, useState } from "react";
 import { useRouter } from "next/navigation";
+import { useDispatch } from 'react-redux'
 
 import { SafeListing, SafeUser } from "@/app/types";
 
 import Heading from "@/app/components/Heading";
 import Container from "@/app/components/Container";
 import ListingCard from "@/app/components/listings/ListingCard";
+import { setLoading } from "../store/redux/main";
 
 interface PropertiesClientProps {
   listings: SafeListing[],
@@ -21,10 +23,13 @@ const PropertiesClient: React.FC<PropertiesClientProps> = ({
   currentUser
 }) => {
   const router = useRouter();
+  const dispatch = useDispatch()
+
   const [deletingId, setDeletingId] = useState('');
 
   const onDelete = useCallback((id: string) => {
-    setDeletingId(id);
+    dispatch(setLoading(true))
+    setDeletingId(id)
 
     axios.delete(`/api/listings/${id}`)
     .then(() => {
@@ -36,6 +41,7 @@ const PropertiesClient: React.FC<PropertiesClientProps> = ({
     })
     .finally(() => {
       setDeletingId('');
+      dispatch(setLoading(false))
     })
   }, [router]);
 

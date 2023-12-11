@@ -4,12 +4,14 @@ import { toast } from "react-hot-toast";
 import axios from "axios";
 import { useCallback, useState } from "react";
 import { useRouter } from "next/navigation";
+import { useDispatch } from 'react-redux'
 
 import { SafeReservation, SafeUser } from "@/app/types"
 ;
 import Heading from "@/app/components/Heading";
 import Container from "@/app/components/Container";
 import ListingCard from "@/app/components/listings/ListingCard";
+import { setLoading } from "../store/redux/main";
 
 interface ReservationsClientProps {
   reservations: SafeReservation[],
@@ -20,11 +22,14 @@ const ReservationsClient: React.FC<ReservationsClientProps> = ({
   reservations,
   currentUser
 }) => {
-  const router = useRouter();
+  const router = useRouter()
+  const dispatch = useDispatch()
+
   const [deletingId, setDeletingId] = useState('');
 
   const onCancel = useCallback((id: string) => {
-    setDeletingId(id);
+    dispatch(setLoading(true))
+    setDeletingId(id)
 
     axios.delete(`/api/reservations/${id}`)
     .then(() => {
@@ -35,7 +40,8 @@ const ReservationsClient: React.FC<ReservationsClientProps> = ({
       toast.error('Something went wrong.')
     })
     .finally(() => {
-      setDeletingId('');
+      setDeletingId('')
+      dispatch(setLoading(false))
     })
   }, [router]);
 

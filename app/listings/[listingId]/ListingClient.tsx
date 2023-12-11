@@ -6,6 +6,7 @@ import { toast } from "react-hot-toast";
 import { Range } from "react-date-range";
 import { useRouter } from "next/navigation";
 import { differenceInDays, eachDayOfInterval } from 'date-fns';
+import { useDispatch } from 'react-redux'
 
 import useSignInModel from "@/app/hooks/useSignInModel";
 import { SafeListing, SafeReservation, SafeUser } from "@/app/types";
@@ -15,7 +16,8 @@ import { categories } from "@/app/components/navbar/Categories";
 import ListingHead from "@/app/components/listings/ListingHead";
 import ListingInfo from "@/app/components/listings/ListingInfo";
 import ListingReservation from "@/app/components/listings/ListingReservation";
-import { Reservation } from "@prisma/client";
+import { setLoading } from "@/app/store/redux/main";
+// import { Reservation } from "@prisma/client";
 
 const initialDateRange = {
   startDate: new Date(),
@@ -39,6 +41,7 @@ const ListingClient: React.FC<ListingClientProps> = ({
 }) => {
   const loginModal = useSignInModel();
   const router = useRouter();
+  const dispatch = useDispatch()
 
   const disabledDates = useMemo(() => {
     let dates: Date[] = [];
@@ -69,6 +72,7 @@ const ListingClient: React.FC<ListingClientProps> = ({
         return loginModal.onOpen();
       }
       setIsLoading(true);
+      dispatch(setLoading(true))
 
       axios.post('/api/reservations', {
         totalPrice,
@@ -86,6 +90,7 @@ const ListingClient: React.FC<ListingClientProps> = ({
       })
       .finally(() => {
         setIsLoading(false);
+        dispatch(setLoading(false))
       })
   },
   [
@@ -94,7 +99,8 @@ const ListingClient: React.FC<ListingClientProps> = ({
     listing?.id,
     router,
     currentUser,
-    loginModal
+    loginModal,
+    dispatch
   ]);
 
   useEffect(() => {

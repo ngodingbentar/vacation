@@ -1,9 +1,11 @@
 'use client';
 
 import { Range } from "react-date-range";
+import { useDispatch } from 'react-redux'
 
 import Button from "../Button";
 import Calendar from "../inputs/Calendar";
+import { setLoading } from "@/app/store/redux/main";
 
 interface ListingReservationProps {
   price: number;
@@ -26,6 +28,11 @@ const ListingReservation: React.FC<
   disabled,
   disabledDates
 }) => {
+  const dispatch = useDispatch()
+
+  function cek () {
+    dispatch(setLoading(true))
+  }
   return ( 
     <div 
       className="
@@ -59,6 +66,7 @@ const ListingReservation: React.FC<
           label="Reserve" 
           onClick={onSubmit}
         />
+        <button onClick={cek}>cek</button>
       </div>
       <hr />
       <div 
